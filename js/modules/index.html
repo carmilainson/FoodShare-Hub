@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodShare Hub - Share Extra Food With Your Community</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="welcomeShell" class="welcome-shell">
+        <header class="landing-header">
+            <div class="brand-lockup">
+                <span class="brand-logo" aria-hidden="true">
+                    <span class="logo-bowl"></span>
+                    <span class="logo-leaf leaf-left"></span>
+                    <span class="logo-leaf leaf-right"></span>
+                    <span class="logo-steam steam-one"></span>
+                    <span class="logo-steam steam-two"></span>
+                </span>
+                <div>
+                    <h1>FoodShare Hub</h1>
+                    <p>Reduce food waste, support nearby families.</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="landing-main">
+            <section class="hero-card">
+                <div class="hero-copy">
+                    <p class="eyebrow">Community food sharing</p>
+                    <h2>Welcome to FoodShare Hub</h2>
+                    <p>Post extra meals, help requesters quickly, and keep food in circulation instead of throwing it away.</p>
+                </div>
+                <div class="hero-side">
+                    <div class="metric-tile">
+                        <span>Live impact</span>
+                        <strong id="impactText">Start sharing to save meals.</strong>
+                    </div>
+                    <div class="metric-stack">
+                        <article class="mini-card">
+                            <span>Community access</span>
+                            <strong>Share food responsibly</strong>
+                            <small>Use your account to post food, request meals, and manage pickups.</small>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="auth-card">
+                <div class="auth-tabs" role="tablist" aria-label="Authentication tabs">
+                    <button type="button" class="auth-tab active" data-auth-view="loginPanel">Login</button>
+                    <button type="button" class="auth-tab" data-auth-view="signupPanel">Signup</button>
+                </div>
+
+                <div id="loginPanel" class="auth-panel active">
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="password-field">
+                                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                                <button type="button" class="password-toggle" data-password-target="loginPassword" aria-label="Show password">
+                                    <span class="password-toggle-icon" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">Login</button>
+                    </form>
+                    <div id="loginMessage" class="feedback-message"></div>
+                </div>
+
+                <div id="signupPanel" class="auth-panel">
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="signupName">Full Name</label>
+                                <input type="text" id="signupName" placeholder="Example: Efren Reyes" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupUsername">Username</label>
+                                <input type="text" id="signupUsername" placeholder="Example: efrenbatatirador" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="signupContact">Contact Number</label>
+                                <input type="text" id="signupContact" placeholder="Example: 09xxxxxxxxx" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupEmail">Email</label>
+                                <input type="email" id="signupEmail" placeholder="Example: efrenreyes@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupAddress">Address</label>
+                            <input type="text" id="signupAddress" placeholder="Example: Mayacabac, Dauis City, Bohol" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <div class="password-field">
+                                <input type="password" id="signupPassword" placeholder="At least 6 characters" required>
+                                <button type="button" class="password-toggle" data-password-target="signupPassword" aria-label="Show password">
+                                    <span class="password-toggle-icon" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">Create Account</button>
+                    </form>
+                    <div id="signupMessage" class="feedback-message"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="dashboardShell" class="dashboard-shell hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div>
+                    <p class="eyebrow">FoodShare Hub</p>
+                    <h2 id="sidebarRoleTitle">User Dashboard</h2>
+                </div>
+                <p id="sessionMeta" class="session-meta"></p>
+            </div>
+            <nav class="sidebar-nav">
+                <button type="button" class="side-link active" data-page="dashboardHome">Home</button>
+                <button type="button" class="side-link" data-page="postFoodPage" data-user-only>Post Food</button>
+                <button type="button" class="side-link" data-page="availableFoodPage" data-user-only>Available Food</button>
+                <button type="button" class="side-link" data-page="myRequestsPage" data-user-only>My Requests</button>
+                <button type="button" class="side-link" data-page="adminPanelPage" data-admin-only>Admin Overview</button>
+                <button type="button" class="side-link logout-link" id="logoutBtn">Logout</button>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <section id="dashboardHome" class="dashboard-page active" data-user-only>
+                <div class="dashboard-hero">
+                    <div>
+                        <p class="eyebrow">Welcome</p>
+                        <h2 id="dashboardGreeting">Food sharing dashboard</h2>
+                        <p>Manage your activity, post food with photos, and keep contact details ready for smooth pickup coordination.</p>
+                    </div>
+                    <div class="hero-kpi">
+                        <span>Total impact</span>
+                        <strong id="dashboardImpactValue">0 meals saved</strong>
+                    </div>
+                </div>
+
+                <div class="summary-grid">
+                    <article class="summary-card">
+                        <span>Available posts</span>
+                        <strong id="summaryAvailable">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>My requests</span>
+                        <strong id="summaryRequests">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Claimed pickups</span>
+                        <strong id="summaryClaimed">0</strong>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="content-panel">
+                        <div class="panel-header">
+                            <h3>Recent available food</h3>
+                            <button type="button" class="text-link" data-jump-page="availableFoodPage">View all</button>
+                        </div>
+                        <div id="dashboardAvailablePreview" class="mini-list"></div>
+                    </section>
+
+                    <section class="content-panel">
+                        <div class="panel-header">
+                            <h3>Recent requests</h3>
+                            <button type="button" class="text-link" data-jump-page="myRequestsPage">View all</button>
+                        </div>
+                        <div id="dashboardRequestPreview" class="mini-list"></div>
+                    </section>
+                </div>
+            </section>
+
+            <section id="adminHomePage" class="dashboard-page" data-admin-only>
+                <div class="dashboard-hero admin-hero">
+                    <div>
+                        <p class="eyebrow">Admin Home</p>
+                        <h2 id="adminHomeGreeting">FoodShare Hub control center</h2>
+                        <p>Review community activity, monitor pending pickups, and keep the food-sharing network moving smoothly.</p>
+                    </div>
+                    <div class="hero-kpi">
+                        <span>Platform status</span>
+                        <strong id="adminStatusValue">Stable</strong>
+                    </div>
+                </div>
+
+                <div class="summary-grid">
+                    <article class="summary-card">
+                        <span>Community users</span>
+                        <strong id="adminHomeUserCount">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Open food posts</span>
+                        <strong id="adminHomeOpenPosts">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Claimed pickups</span>
+                        <strong id="adminHomeClaimedPosts">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Total requests</span>
+                        <strong id="adminHomeRequestCount">0</strong>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="content-panel">
+                        <div class="panel-header">
+                            <h3>Latest food posts</h3>
+                            <button type="button" class="text-link" data-page="adminPanelPage">Open overview</button>
+                        </div>
+                        <div id="adminHomePostPreview" class="mini-list"></div>
+                    </section>
+
+                    <section class="content-panel">
+                        <div class="panel-header">
+                            <h3>Latest requests</h3>
+                            <button type="button" class="text-link" data-page="adminPanelPage">Review all</button>
+                        </div>
+                        <div id="adminHomeRequestPreview" class="mini-list"></div>
+                    </section>
+                </div>
+
+                <section class="content-panel">
+                    <div class="panel-header">
+                        <h3>Admin checklist</h3>
+                    </div>
+                    <div id="adminChecklist" class="mini-list"></div>
+                </section>
+            </section>
+
+            <section id="postFoodPage" class="dashboard-page">
+                <div class="page-header">
+                    <div>
+                        <p class="eyebrow">Share food</p>
+                        <h2>Post Extra Food</h2>
+                    </div>
+                </div>
+                <form id="postForm" class="food-form">
+                    <div class="form-group">
+                        <label for="foodTitle">Food Title*</label>
+                        <input type="text" id="foodTitle" placeholder="Example: Vegetable pasta tray" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="foodType">Food Type*</label>
+                        <select id="foodType" required>
+                            <option value="">Select food type</option>
+                            <option value="Rice Meal">Rice Meal</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Bread and Pastry">Bread and Pastry</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Soup or Stew">Soup or Stew</option>
+                            <option value="Beverage">Beverage</option>
+                            <option value="Fruits and Vegetables">Fruits and Vegetables</option>
+                            <option value="Packed Meal">Packed Meal</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description*</label>
+                        <textarea id="description" placeholder="Describe the food, condition, and anything important like allergens or packaging." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="foodImage">Upload Food Picture</label>
+                        <input type="file" id="foodImage" accept="image/*">
+                        <div id="imagePreview" class="image-preview hidden">
+                            <img id="previewImg" alt="Food preview">
+                            <p>Preview of the food photo</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity*</label>
+                            <input type="text" id="quantity" placeholder="Example: Good for 3 to 4 people" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Pickup Location*</label>
+                            <input type="text" id="location" placeholder="Example: Gate 2, Purok 4, near chapel" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="availableDate">Available Date*</label>
+                            <input type="date" id="availableDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="availableTime">Available Time*</label>
+                            <input type="time" id="availableTime" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sharerName">Your Name*</label>
+                            <input type="text" id="sharerName" placeholder="Example: Maria Santos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactDetails">Contact Details*</label>
+                            <input type="text" id="contactDetails" placeholder="Phone number, email, or Messenger link" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Share Food</button>
+                </form>
+                <div id="postSuccess" class="success-message hidden">
+                    <p>Food posted successfully. Requesters can now see your contact details.</p>
+                </div>
+            </section>
+
+            <section id="availableFoodPage" class="dashboard-page">
+                <div class="page-header">
+                    <div>
+                        <p class="eyebrow">Browse posts</p>
+                        <h2>Available Food</h2>
+                    </div>
+                </div>
+                <section class="content-panel search-panel">
+                    <div class="form-group">
+                        <label for="dashboardFoodSearch">Search food</label>
+                        <input type="search" id="dashboardFoodSearch" data-food-search placeholder="Search by food type, like dessert, bread, rice, soup, or location">
+                    </div>
+                </section>
+                <div id="foodListings" class="food-grid"></div>
+            </section>
+
+            <section id="myRequestsPage" class="dashboard-page">
+                <div class="page-header">
+                    <div>
+                        <p class="eyebrow">Pickup history</p>
+                        <h2>My Requests</h2>
+                    </div>
+                </div>
+                <div id="myRequests" class="food-grid"></div>
+            </section>
+
+            <section id="adminPanelPage" class="dashboard-page">
+                <div class="page-header">
+                    <div>
+                        <p class="eyebrow">Admin</p>
+                        <h2>Admin Overview</h2>
+                    </div>
+                </div>
+                <div class="summary-grid">
+                    <article class="summary-card">
+                        <span>User accounts</span>
+                        <strong id="adminUserCount">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Public posts</span>
+                        <strong id="adminPublicPostCount">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Total food posts</span>
+                        <strong id="adminPostCount">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Total requests</span>
+                        <strong id="adminRequestCount">0</strong>
+                    </article>
+                </div>
+                <section class="content-panel">
+                    <div class="panel-header">
+                        <h3>Recently posted food</h3>
+                    </div>
+                    <div id="adminRecentPosts" class="mini-list"></div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="js/core/store.js"></script>
+    <script src="js/core/app.js"></script>
+    <script src="js/modules/auth.js"></script>
+    <script src="js/modules/ui.js"></script>
+    <script src="js/modules/food.js"></script>
+    <script src="js/bootstrap/home.js"></script>
+</body>
+</html>

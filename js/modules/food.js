@@ -7,6 +7,7 @@ FoodShareHubApp.prototype.handlePostFood = async function() {
     const formData = {
         ownerId: this.session.id,
         title: this.getElement('foodTitle')?.value.trim() || '',
+        foodType: this.getElement('foodType')?.value || '',
         description: this.getElement('description')?.value.trim() || '',
         quantity: this.getElement('quantity')?.value.trim() || '',
         location: this.getElement('location')?.value.trim() || '',
@@ -17,7 +18,7 @@ FoodShareHubApp.prototype.handlePostFood = async function() {
         image: this.pendingImageData
     };
 
-    if (!formData.title || !formData.description || !formData.quantity || !formData.location || !formData.availableDate || !formData.availableTime) {
+    if (!formData.title || !formData.foodType || !formData.description || !formData.quantity || !formData.location || !formData.availableDate || !formData.availableTime) {
         return;
     }
 
@@ -127,14 +128,40 @@ FoodShareHubApp.prototype.getVisiblePostsForSession = function(options = {}) {
     return this.prioritizePostsByArea(filtered, this.session.address || '');
 };
 
+FoodShareHubApp.prototype.getFoodSearchTerm = function() {
+    const activeSearch = document.querySelector('[data-food-search]');
+    return activeSearch ? activeSearch.value.trim().toLowerCase() : '';
+};
+
+FoodShareHubApp.prototype.matchesFoodSearch = function(post, searchTerm) {
+    if (!searchTerm) return true;
+
+    const searchableText = [
+        post.title,
+        post.foodType,
+        post.description,
+        post.quantity,
+        post.location,
+        post.sharerName,
+        post.contactDetails
+    ]
+        .join(' ')
+        .toLowerCase();
+
+    return searchableText.includes(searchTerm);
+};
+
 FoodShareHubApp.prototype.loadFoodListings = function() {
     const container = this.getElement('foodListings');
     if (!container) return;
 
-    const visiblePosts = this.getVisiblePostsForSession();
+    const searchTerm = this.getFoodSearchTerm();
+    const visiblePosts = this.getVisiblePostsForSession().filter((post) => this.matchesFoodSearch(post, searchTerm));
 
     if (!visiblePosts.length) {
-        container.innerHTML = '<div class="empty-card">No food posts available yet.</div>';
+        container.innerHTML = searchTerm
+            ? `<div class="empty-card">No food posts match "${this.escapeHtml(searchTerm)}".</div>`
+            : '<div class="empty-card">No food posts available yet.</div>';
         return;
     }
 
@@ -143,6 +170,7 @@ FoodShareHubApp.prototype.loadFoodListings = function() {
             ${post.image ? `<img class="food-card-image" src="${post.image}" alt="${this.escapeHtml(post.title)}">` : ''}
             <div class="food-card-body">
                 <h3>${this.escapeHtml(post.title)}</h3>
+                <p><strong>Type:</strong> <span class="status-pill">${this.escapeHtml(post.foodType || 'Other')}</span></p>
                 <p>${this.escapeHtml(post.description)}</p>
                 <div class="contact-panel">
                     <p><strong>Sharer:</strong> ${this.escapeHtml(post.sharerName)}</p>
@@ -287,11 +315,24 @@ FoodShareHubApp.prototype.renderDashboard = function() {
     const adminPostCount = this.getElement('adminPostCount');
     const adminRequestCount = this.getElement('adminRequestCount');
     const adminRecentPosts = this.getElement('adminRecentPosts');
+    const adminHomeGreeting = this.getElement('adminHomeGreeting');
+    const adminStatusValue = this.getElement('adminStatusValue');
+    const adminHomeUserCount = this.getElement('adminHomeUserCount');
+    const adminHomeOpenPosts = this.getElement('adminHomeOpenPosts');
+    const adminHomeClaimedPosts = this.getElement('adminHomeClaimedPosts');
+    const adminHomeRequestCount = this.getElement('adminHomeRequestCount');
+    const adminHomePostPreview = this.getElement('adminHomePostPreview');
+    const adminHomeRequestPreview = this.getElement('adminHomeRequestPreview');
+    const adminChecklist = this.getElement('adminChecklist');
 
     if (dashboardGreeting) {
         dashboardGreeting.textContent = this.session.role === 'admin'
             ? 'Admin overview for FoodShare Hub'
             : `Welcome back, ${this.session.name}`;
+    }
+
+    if (adminHomeGreeting) {
+        adminHomeGreeting.textContent = `Welcome back, ${this.session.role === 'admin' ? this.session.username : this.session.name}`;
     }
 
     if (summaryAvailable) summaryAvailable.textContent = String(availablePosts.length);
@@ -318,6 +359,33 @@ FoodShareHubApp.prototype.renderDashboard = function() {
         adminRecentPosts.innerHTML = this.renderMiniList(
             posts.slice(0, 5).map((post) => `${post.title} | ${post.sharerName}`)
         );
+    }
+
+    if (adminStatusValue) {
+        const pendingPickups = requests.filter((request) => request.status === 'Pending pickup').length;
+        adminStatusValue.textContent = pendingPickups > 5 ? 'Needs attention' : 'Stable';
+    }
+    if (adminHomeUserCount) adminHomeUserCount.textContent = String(this.users.filter((user) => user.role === 'user').length);
+    if (adminHomeOpenPosts) adminHomeOpenPosts.textContent = String(posts.filter((post) => !post.claimed).length);
+    if (adminHomeClaimedPosts) adminHomeClaimedPosts.textContent = String(posts.filter((post) => post.claimed).length);
+    if (adminHomeRequestCount) adminHomeRequestCount.textContent = String(requests.length);
+    if (adminHomePostPreview) {
+        adminHomePostPreview.innerHTML = this.renderMiniList(
+            posts.slice(0, 4).map((post) => `${post.title} | ${post.claimed ? 'Claimed' : 'Open'}`)
+        );
+    }
+    if (adminHomeRequestPreview) {
+        adminHomeRequestPreview.innerHTML = this.renderMiniList(
+            requests.slice(0, 4).map((request) => `${request.title} | ${request.status}`)
+        );
+    }
+    if (adminChecklist) {
+        const checklistItems = [
+            `${posts.filter((post) => !post.claimed).length} open posts ready for pickup`,
+            `${requests.filter((request) => request.status === 'Pending pickup').length} requests waiting for coordination`,
+            `${this.users.filter((user) => user.role === 'user').length} active community accounts`
+        ];
+        adminChecklist.innerHTML = this.renderMiniList(checklistItems);
     }
 
     this.loadFoodListings();

@@ -47,6 +47,10 @@ FoodShareHubApp.prototype.bindEvents = function() {
     document.querySelectorAll('#logoutBtn').forEach((button) => {
         button.addEventListener('click', () => this.logout());
     });
+
+    document.querySelectorAll('[data-food-search]').forEach((input) => {
+        input.addEventListener('input', () => this.loadFoodListings());
+    });
 };
 
 FoodShareHubApp.prototype.showWelcome = function() {
@@ -119,7 +123,15 @@ FoodShareHubApp.prototype.showDashboardPage = function(pageId) {
     if (!this.session) return;
 
     const isAdmin = this.session.role === 'admin';
-    const nextPageId = !isAdmin && pageId === 'adminPanelPage' ? 'dashboardHome' : pageId;
+    let nextPageId = pageId;
+
+    if (isAdmin && pageId === 'dashboardHome') {
+        nextPageId = 'adminHomePage';
+    }
+
+    if (!isAdmin && pageId === 'adminPanelPage') {
+        nextPageId = 'dashboardHome';
+    }
 
     document.querySelectorAll('.dashboard-page').forEach((page) => {
         page.classList.toggle('active', page.id === nextPageId);
@@ -131,7 +143,7 @@ FoodShareHubApp.prototype.showDashboardPage = function(pageId) {
 
     if (nextPageId === 'availableFoodPage') this.loadFoodListings();
     if (nextPageId === 'myRequestsPage') this.loadMyRequests();
-    if (nextPageId === 'dashboardHome' || nextPageId === 'adminPanelPage') this.renderDashboard();
+    if (nextPageId === 'dashboardHome' || nextPageId === 'adminHomePage' || nextPageId === 'adminPanelPage') this.renderDashboard();
     if (nextPageId === 'postFoodPage') this.prefillPostForm();
 };
 
