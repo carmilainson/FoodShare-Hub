@@ -1,0 +1,12 @@
+body {
+    padding-bottom: 32px;
+}
+
+.main-nav {
+    padding-bottom: 20px;
+}
+
+.dashboard-main {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+}

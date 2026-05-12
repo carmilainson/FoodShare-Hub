@@ -1,0 +1,8 @@
+.welcome-shell {
+    padding-bottom: 64px;
+}
+
+.dashboard-shell {
+    border-radius: 28px 28px 0 0;
+    overflow: hidden;
+}
