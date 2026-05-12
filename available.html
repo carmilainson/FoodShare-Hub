@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Food - FoodShare Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="main-nav" aria-label="Primary navigation">
+        <div class="nav-brand">
+            <span class="brand-logo nav-logo" aria-hidden="true">
+                <span class="logo-bowl"></span>
+                <span class="logo-leaf leaf-left"></span>
+                <span class="logo-leaf leaf-right"></span>
+                <span class="logo-steam steam-one"></span>
+                <span class="logo-steam steam-two"></span>
+            </span>
+            <span>FoodShare Hub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="post.html" class="nav-link">Post Food</a></li>
+            <li><a href="available.html" class="nav-link active" aria-current="page">Available</a></li>
+            <li><a href="requests.html" class="nav-link">Requests</a></li>
+            <li><button id="logoutBtn" type="button" class="nav-link logout">Logout</button></li>
+        </ul>
+    </nav>
+
+    <main class="dashboard-main">
+        <section class="dashboard-page active">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Browse posts</p>
+                    <h1>Available Food Near You</h1>
+                </div>
+            </div>
+            <div id="foodListings" class="food-grid">
+                <div class="empty-card">Loading available food...</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
