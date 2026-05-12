@@ -1,6 +1,6 @@
 window.FOODSHARE_SUPABASE = {
-    url: 'https://akyshgjqynudwuvmlzop.supabase.co',
-    anonKey: 'sb_publishable_ZhzpyvvvFtFyhN4SWpMqOw_-sFhuJLg',
+    url: '',
+    anonKey: '',
     useLocalFallback: true,
     tables: {
         users: 'users',
