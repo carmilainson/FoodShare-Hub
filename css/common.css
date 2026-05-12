@@ -437,6 +437,10 @@ a {
     color: #fff;
 }
 
+.admin-hero {
+    background: linear-gradient(135deg, #1f3324, #35563d);
+}
+
 .dashboard-hero p {
     color: rgba(255, 255, 255, 0.88);
 }
@@ -468,6 +472,14 @@ a {
 .summary-card,
 .content-panel {
     padding: 22px;
+}
+
+.search-panel {
+    padding: 18px 22px;
+}
+
+.search-panel .form-group {
+    gap: 10px;
 }
 
 .summary-card strong {
