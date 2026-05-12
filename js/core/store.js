@@ -162,6 +162,7 @@ class FoodShareDataStore {
             id: row.id,
             ownerId: row.owner_id,
             title: row.title || '',
+            foodType: row.food_type || '',
             description: row.description || '',
             quantity: row.quantity || '',
             location: row.location || '',
@@ -252,6 +253,7 @@ class FoodShareDataStore {
             body: {
                 owner_id: post.ownerId,
                 title: post.title,
+                food_type: post.foodType,
                 description: post.description,
                 quantity: post.quantity,
                 location: post.location,
