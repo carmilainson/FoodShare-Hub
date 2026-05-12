@@ -1,6 +1,6 @@
 FoodShareHubApp.prototype.handlePostFood = async function() {
     if (!this.session || this.session.role !== 'user') {
-        window.location.href = 'home.html';
+        window.location.href = 'index.html';
         return;
     }
 

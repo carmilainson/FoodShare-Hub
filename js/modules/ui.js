@@ -156,7 +156,7 @@ FoodShareHubApp.prototype.checkAuthRedirect = function() {
     const protectedPages = ['post.html', 'available.html', 'requests.html'];
 
     if (protectedPages.includes(this.pageName) && !this.session) {
-        window.location.href = 'home.html';
+        window.location.href = 'index.html';
     }
 };
 
@@ -165,5 +165,5 @@ FoodShareHubApp.prototype.logout = function() {
     this.pendingImageData = '';
     this.resetImagePreview();
     this.getElement('loginForm')?.reset();
-    window.location.href = 'home.html';
+    window.location.href = 'index.html';
 };

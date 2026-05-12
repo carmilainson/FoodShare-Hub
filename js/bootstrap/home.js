@@ -1,4 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const app = new FoodShareHubApp('home.html');
+    const app = new FoodShareHubApp('index.html');
     app.init();
 });

@@ -48,7 +48,7 @@ class FoodShareHubApp {
     }
 
     isHomePage() {
-        return this.pageName === 'home.html' || this.pageName === 'index.html';
+        return this.pageName === 'index.html' || this.pageName === 'home.html';
     }
 
     getElement(id) {
