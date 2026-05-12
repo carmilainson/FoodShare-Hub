@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Food - FoodShare Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="main-nav" aria-label="Primary navigation">
+        <div class="nav-brand">
+            <span class="brand-logo nav-logo" aria-hidden="true">
+                <span class="logo-bowl"></span>
+                <span class="logo-leaf leaf-left"></span>
+                <span class="logo-leaf leaf-right"></span>
+                <span class="logo-steam steam-one"></span>
+                <span class="logo-steam steam-two"></span>
+            </span>
+            <span>FoodShare Hub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="post.html" class="nav-link active" aria-current="page">Post Food</a></li>
+            <li><a href="available.html" class="nav-link">Available</a></li>
+            <li><a href="requests.html" class="nav-link">Requests</a></li>
+            <li><button id="logoutBtn" type="button" class="nav-link logout">Logout</button></li>
+        </ul>
+    </nav>
+
+    <main class="dashboard-main">
+        <section class="dashboard-page active">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Share food</p>
+                    <h1>Post Extra Food</h1>
+                </div>
+            </div>
+            <form id="postForm" class="food-form">
+                <div class="form-group">
+                    <label for="foodTitle">Food Title*</label>
+                    <input type="text" id="foodTitle" placeholder="Example: Vegetable pasta tray" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description*</label>
+                    <textarea id="description" placeholder="Describe the food, condition, and anything important like allergens or packaging." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="foodImage">Upload Food Picture</label>
+                    <input type="file" id="foodImage" accept="image/*">
+                    <div id="imagePreview" class="image-preview hidden">
+                        <img id="previewImg" alt="Food preview">
+                        <p>Preview of the food photo</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quantity">Quantity*</label>
+                        <input type="text" id="quantity" placeholder="Example: Good for 3 to 4 people" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Pickup Location*</label>
+                        <input type="text" id="location" placeholder="Example: Gate 2, Purok 4, near chapel" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="availableDate">Available Date*</label>
+                        <input type="date" id="availableDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="availableTime">Available Time*</label>
+                        <input type="time" id="availableTime" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sharerName">Your Name*</label>
+                        <input type="text" id="sharerName" placeholder="Example: Maria Santos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactDetails">Contact Details*</label>
+                        <input type="text" id="contactDetails" placeholder="Phone number, email, or Messenger link" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Share Food</button>
+            </form>
+            <div id="postSuccess" class="success-message hidden">
+                <p>Food posted successfully. It is now available for others to claim.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

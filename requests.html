@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Requests - FoodShare Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="main-nav" aria-label="Primary navigation">
+        <div class="nav-brand">
+            <span class="brand-logo nav-logo" aria-hidden="true">
+                <span class="logo-bowl"></span>
+                <span class="logo-leaf leaf-left"></span>
+                <span class="logo-leaf leaf-right"></span>
+                <span class="logo-steam steam-one"></span>
+                <span class="logo-steam steam-two"></span>
+            </span>
+            <span>FoodShare Hub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="post.html" class="nav-link">Post Food</a></li>
+            <li><a href="available.html" class="nav-link">Available</a></li>
+            <li><a href="requests.html" class="nav-link active" aria-current="page">Requests</a></li>
+            <li><button id="logoutBtn" type="button" class="nav-link logout">Logout</button></li>
+        </ul>
+    </nav>
+
+    <main class="dashboard-main">
+        <section class="dashboard-page active">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Pickup history</p>
+                    <h1>My Requests</h1>
+                </div>
+            </div>
+            <div id="myRequests" class="food-grid">
+                <div class="empty-card">Loading your requests...</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
