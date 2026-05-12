@@ -137,7 +137,7 @@
         </aside>
 
         <main class="dashboard-main">
-            <section id="dashboardHome" class="dashboard-page active">
+            <section id="dashboardHome" class="dashboard-page active" data-user-only>
                 <div class="dashboard-hero">
                     <div>
                         <p class="eyebrow">Welcome</p>
@@ -184,6 +184,64 @@
                 </div>
             </section>
 
+            <section id="adminHomePage" class="dashboard-page" data-admin-only>
+                <div class="dashboard-hero admin-hero">
+                    <div>
+                        <p class="eyebrow">Admin Home</p>
+                        <h2 id="adminHomeGreeting">FoodShare Hub control center</h2>
+                        <p>Review community activity, monitor pending pickups, and keep the food-sharing network moving smoothly.</p>
+                    </div>
+                    <div class="hero-kpi">
+                        <span>Platform status</span>
+                        <strong id="adminStatusValue">Stable</strong>
+                    </div>
+                </div>
+
+                <div class="summary-grid">
+                    <article class="summary-card">
+                        <span>Community users</span>
+                        <strong id="adminHomeUserCount">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Open food posts</span>
+                        <strong id="adminHomeOpenPosts">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Claimed pickups</span>
+                        <strong id="adminHomeClaimedPosts">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span>Total requests</span>
+                        <strong id="adminHomeRequestCount">0</strong>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="content-panel">
+                        <div class="panel-header">
+                            <h3>Latest food posts</h3>
+                            <button type="button" class="text-link" data-page="adminPanelPage">Open overview</button>
+                        </div>
+                        <div id="adminHomePostPreview" class="mini-list"></div>
+                    </section>
+
+                    <section class="content-panel">
+                        <div class="panel-header">
+                            <h3>Latest requests</h3>
+                            <button type="button" class="text-link" data-page="adminPanelPage">Review all</button>
+                        </div>
+                        <div id="adminHomeRequestPreview" class="mini-list"></div>
+                    </section>
+                </div>
+
+                <section class="content-panel">
+                    <div class="panel-header">
+                        <h3>Admin checklist</h3>
+                    </div>
+                    <div id="adminChecklist" class="mini-list"></div>
+                </section>
+            </section>
+
             <section id="postFoodPage" class="dashboard-page">
                 <div class="page-header">
                     <div>
@@ -195,6 +253,21 @@
                     <div class="form-group">
                         <label for="foodTitle">Food Title*</label>
                         <input type="text" id="foodTitle" placeholder="Example: Vegetable pasta tray" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="foodType">Food Type*</label>
+                        <select id="foodType" required>
+                            <option value="">Select food type</option>
+                            <option value="Rice Meal">Rice Meal</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Bread and Pastry">Bread and Pastry</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Soup or Stew">Soup or Stew</option>
+                            <option value="Beverage">Beverage</option>
+                            <option value="Fruits and Vegetables">Fruits and Vegetables</option>
+                            <option value="Packed Meal">Packed Meal</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="description">Description*</label>
@@ -252,6 +325,12 @@
                         <h2>Available Food</h2>
                     </div>
                 </div>
+                <section class="content-panel search-panel">
+                    <div class="form-group">
+                        <label for="dashboardFoodSearch">Search food</label>
+                        <input type="search" id="dashboardFoodSearch" data-food-search placeholder="Search by food type, like dessert, bread, rice, soup, or location">
+                    </div>
+                </section>
                 <div id="foodListings" class="food-grid"></div>
             </section>
 
