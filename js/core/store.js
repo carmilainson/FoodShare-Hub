@@ -325,4 +325,26 @@ class FoodShareDataStore {
         });
         return this.mapRequestRow(created);
     }
+
+    async updateRequestStatus(requestId, status) {
+        if (!this.isSupabaseConfigured()) {
+            const requests = this.loadLocal('requests');
+            const request = requests.find((item) => String(item.id) === String(requestId));
+            if (!request) return null;
+
+            request.status = status;
+            this.saveLocal('requests', requests);
+            return request;
+        }
+
+        const [updated] = await this.request(this.getTableName('requests'), {
+            method: 'PATCH',
+            query: `?id=eq.${encodeURIComponent(requestId)}`,
+            prefer: 'return=representation',
+            body: {
+                status
+            }
+        });
+        return this.mapRequestRow(updated);
+    }
 }
