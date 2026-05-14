@@ -251,9 +251,35 @@ FoodShareHubApp.prototype.loadMyRequests = function() {
                 <p><strong>Sharer:</strong> ${this.escapeHtml(request.sharerName)}</p>
                 <p><strong>Contact:</strong> ${this.escapeHtml(request.sharerContact)}</p>
                 <p><strong>Status:</strong> <span class="status-pill">${this.escapeHtml(request.status)}</span></p>
+                ${request.status === 'Pending pickup'
+                    ? `<button type="button" class="btn btn-primary full-width received-btn" data-id="${request.id}">Mark as Received</button>`
+                    : ''}
             </div>
         </article>
     `).join('');
+
+    container.querySelectorAll('.received-btn').forEach((button) => {
+        button.addEventListener('click', async () => this.handleMarkRequestReceived(button.dataset.id));
+    });
+};
+
+FoodShareHubApp.prototype.handleMarkRequestReceived = async function(requestId) {
+    const request = this.getRequests().find((item) => String(item.id) === String(requestId));
+    if (!request || request.status === 'Received by requester') return;
+
+    try {
+        await this.store.updateRequestStatus(requestId, 'Received by requester');
+        await this.refreshData();
+
+        if (this.isHomePage()) {
+            this.renderDashboard();
+            this.showDashboardPage('myRequestsPage');
+        } else {
+            this.loadMyRequests();
+        }
+    } catch (error) {
+        alert(`Could not update request status: ${error.message}`);
+    }
 };
 
 FoodShareHubApp.prototype.renderMiniList = function(items) {
